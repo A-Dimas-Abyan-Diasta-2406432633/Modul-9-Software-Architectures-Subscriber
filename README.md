@@ -21,3 +21,10 @@ Artinya sama seperti di subscriber, yaitu alamat koneksi ke RabbitMQ lokal. Publ
 ![RabbitMQ Running](images/RabbitMQ_Running.png)
 
 Dari screenshot ini RabbitMQ sudah berjalan normal di `localhost:15672`. Kondisi awal masih `Connections: 0`, `Queues: 0`, dan `Consumers: 0` karena belum ada subscriber yang aktif. Ini normal dan memang expected sebelum proses `cargo run` dari subscriber dijalankan.
+
+## Sending and processing event
+
+![Subscriber Run](images/Console_Subscriber_Run.png)
+![Publisher Run](images/Console_Publisher_Run.png)
+
+Setelah subscriber jalan, saya menjalankan publisher. Setiap eksekusi publisher mengirim 5 event `user_created` dengan isi data user yang berbeda. Event itu diterima subscriber dan tercetak di console. Ini menunjukkan flow publish subscribe sudah bekerja, yaitu publisher kirim ke broker lalu subscriber consume dari queue.
