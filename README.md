@@ -46,3 +46,10 @@ thread::sleep(_ten_millis);
 ![Slow Subscriber Run](images/Subscriber_run.png)
 
 Dengan delay 1 detik per message, proses consume jadi lebih lambat. Efeknya queue bisa menumpuk lebih dulu saat publisher kirim cepat. Ini menggambarkan kasus real ketika consumer lebih lambat dari producer.
+
+## Reflection and running at least three subscribers
+
+![Publisher with 3 Subscribers](images/Console_Publisher_run_3_Subscriber.png)
+![Graph with 3 Subscribers](images/Graph_3_Subscriber.png)
+
+Saat saya jalankan minimal 3 subscriber, beban konsumsi event terbagi ke beberapa worker. Dari console terlihat event tidak selalu diproses oleh satu proses saja, tapi tersebar ke beberapa subscriber. Dampaknya grafik queue lebih cepat turun dibanding saat hanya satu subscriber lambat. Ini membuktikan scaling horizontal di sisi consumer bisa bantu mengurangi bottleneck. Perbaikan yang bisa dilakukan dari kode sekarang adalah menambahkan retry strategy, logging yang lebih terstruktur, dan graceful shutdown agar service lebih siap dipakai di kondisi produksi.
