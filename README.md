@@ -34,3 +34,15 @@ Setelah subscriber jalan, saya menjalankan publisher. Setiap eksekusi publisher 
 ![Publisher Chart](images/Publisher_run.png)
 
 Ketika publisher dijalankan berulang, grafik message rate di RabbitMQ muncul spike. Spike ini muncul karena message dikirim secara burst dalam waktu singkat. Semakin sering `cargo run` di publisher, semakin sering spike terlihat. Setelah message selesai diproses, grafik kembali turun. Jadi pola spike sangat berkaitan dengan frekuensi publish event.
+
+## Simulating slow subscriber
+
+Pada file `subscriber/src/main.rs`, baris delay saya aktifkan:
+
+```rust
+thread::sleep(_ten_millis);
+```
+
+![Slow Subscriber Run](images/Subscriber_run.png)
+
+Dengan delay 1 detik per message, proses consume jadi lebih lambat. Efeknya queue bisa menumpuk lebih dulu saat publisher kirim cepat. Ini menggambarkan kasus real ketika consumer lebih lambat dari producer.
