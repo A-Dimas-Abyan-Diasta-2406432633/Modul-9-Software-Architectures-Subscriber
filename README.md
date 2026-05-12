@@ -28,3 +28,9 @@ Dari screenshot ini RabbitMQ sudah berjalan normal di `localhost:15672`. Kondisi
 ![Publisher Run](images/Console_Publisher_Run.png)
 
 Setelah subscriber jalan, saya menjalankan publisher. Setiap eksekusi publisher mengirim 5 event `user_created` dengan isi data user yang berbeda. Event itu diterima subscriber dan tercetak di console. Ini menunjukkan flow publish subscribe sudah bekerja, yaitu publisher kirim ke broker lalu subscriber consume dari queue.
+
+## Monitoring chart based on publisher
+
+![Publisher Chart](images/Publisher_run.png)
+
+Ketika publisher dijalankan berulang, grafik message rate di RabbitMQ muncul spike. Spike ini muncul karena message dikirim secara burst dalam waktu singkat. Semakin sering `cargo run` di publisher, semakin sering spike terlihat. Setelah message selesai diproses, grafik kembali turun. Jadi pola spike sangat berkaitan dengan frekuensi publish event.
